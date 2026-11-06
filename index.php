@@ -24,6 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (isset($_SESSION['tasks'][$index])) {
             $_SESSION['tasks'][$index]['completed'] = !$_SESSION['tasks'][$index]['completed'];
         }
+    } elseif ($action === 'edit') {
+        $index = (int)$_POST['index'];
+        $trimmedTaskName = trim($_POST['taskInput'] ?? '');
+
+        if (isset($_SESSION['tasks'][$index]) && $trimmedTaskName !== '') {
+            $_SESSION['tasks'][$index]['name'] = htmlspecialchars($trimmedTaskName, ENT_QUOTES, 'UTF-8');
+        }
     } elseif ($action === 'delete') {
         $index = (int)$_POST['index'];
         if (isset($_SESSION['tasks'][$index])) {
@@ -56,6 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 
     <section id="task-container">
+        <p id="ongoing-heading">Ongoing (<span id="ongoingCount">0</span>)</p>
+
         <!-- INCOMPLETE -->
         <?php foreach ($_SESSION['tasks'] as $index => $task): ?>
             <?php if (!$task['completed']): ?>
@@ -65,9 +74,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <input type="hidden" name="index" value="<?= $index ?>">
                         <button type="submit" class="check"></button>
                     </form>
-                    
                     <div class="text"><?= $task['name'] ?></div>
-                    
+
+                    <button type="button" class="edit" aria-label="Edit task" title="Edit task">&#9998;</button>
+                    <form method="POST" class="edit-form action-form">
+                        <input type="hidden" name="action" value="edit">
+                        <input type="hidden" name="index" value="<?= $index ?>">
+                        <input type="hidden" name="taskInput">
+                    </form>
+
                     <form method="POST" class="delete-form action-form">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="index" value="<?= $index ?>">

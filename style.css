@@ -109,7 +109,8 @@ h1 {
     flex: 1;
 }
 
-.task .delete {
+.task .delete,
+.task .edit {
     border: none;
     background: transparent;
     cursor: pointer;
@@ -121,10 +122,18 @@ h1 {
     color: #888;
 }
 
-#task-list p {
+#task-list p,
+#ongoing-heading {
     padding-top: 20px;
     font-size: 22px;
     font-weight: 600;
+}
+
+#ongoing-heading {
+    padding-top: 0;
+}
+
+#task-list p {
     cursor: pointer;
 }
 
