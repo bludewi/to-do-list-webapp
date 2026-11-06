@@ -23,7 +23,6 @@ h1 {
     margin-bottom: 14px;
 }
 
-/* ---------- Input ---------- */
 #input {
     position: relative;
     width: 100%;
@@ -61,7 +60,6 @@ h1 {
     cursor: pointer;
 }
 
-/* ---------- White card (task-container + task-list) ---------- */
 #task-container,
 #task-list {
     width: 100%;
@@ -82,7 +80,7 @@ h1 {
     min-height: 160px;
 }
 
-/* ---------- Single task row ---------- */
+
 .task {
     display: flex;
     align-items: center;
@@ -123,10 +121,26 @@ h1 {
     color: #888;
 }
 
-/* ---------- Completed header ---------- */
 #task-list p {
     padding-top: 20px;
     font-size: 22px;
     font-weight: 600;
     cursor: pointer;
+}
+
+.action-form {
+    display: contents;
+}
+
+#toggle-completed {
+    user-select: none;
+}
+
+#arrow {
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+}
+
+.rotate-down {
+    transform: rotate(90deg);
 }
