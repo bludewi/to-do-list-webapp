@@ -1,6 +1,26 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const ongoingTasksCount = document.querySelectorAll('#task-container .task').length;
+    document.getElementById('ongoingCount').textContent = ongoingTasksCount;
+
     const completedTasksCount = document.querySelectorAll('.task.done').length;
     document.getElementById('completedCount').textContent = completedTasksCount;
+
+    const editButtons = document.querySelectorAll('.edit');
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const task = button.closest('.task');
+            const taskName = task.querySelector('.text').textContent;
+            const editedTaskName = prompt("Edit task:", taskName);
+
+            if (editedTaskName === null || editedTaskName.trim() === '') {
+                return;
+            }
+
+            const editForm = task.querySelector('.edit-form');
+            editForm.querySelector('input[name="taskInput"]').value = editedTaskName;
+            editForm.submit();
+        });
+    });
 
     // Delete confirmation
     const deleteForms = document.querySelectorAll('.delete-form');
